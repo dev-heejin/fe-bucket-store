@@ -18,12 +18,12 @@ export default function Header() {
             }</div>
         </div>
         {/*모바일 화면에서도 노출되는 타이틀 영역*/}
-        <div className='w-full bg-white p-[20px] flex justify-between items-center lg:mt-[80px] lg:p-[40px]'>
+        <div className='w-full p-[20px] flex justify-between items-center lg:mt-[80px] lg:p-[40px_20px]'>
             <div className='flex justify-start items-center gap-[12px]'>
                 <ArrowBackIcon className={'lg:!hidden'} sx={{color: 'gray', fontSize: 24}}/>
                 <h4 className='text-xl lg:text-7xl lg:font-bold'>티셔츠</h4>
             </div>
-            <div className='flex gap-[16px] justify-start items-center'>
+            <div className='flex gap-[16px] justify-end items-cente'>
                 <Search className={'lg:!hidden'} sx={{color: 'gray', fontSize: 24}}/>
                 <LocalMallIcon className={'lg:!hidden'} sx={{color: 'gray', fontSize: 24}}/>
             </div>
