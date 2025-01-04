@@ -28,7 +28,9 @@ export default function CategoryFilterBar() {
         router.replace(`?${currentParams}`)
     }
 
-    return <div className={'w-full'}>
+    return <div
+        className="w-full bg-white shadow-md sticky top-0 z-50 py-[10px] lg:static lg:shadow-none "
+    >
         <Swiper
             slidesPerView={'auto'}
             freeMode={true}
@@ -38,7 +40,7 @@ export default function CategoryFilterBar() {
             modules={[FreeMode, Pagination]}
         >
             <div className="duration-0 transform delay-0">
-                <SwiperSlide  style={{width: 'auto !important'}}>
+                <SwiperSlide style={{width: 'auto !important'}}>
                     <Chip label={'전체'}
                           skipFocusWhenDisabled
                           clickable
@@ -48,26 +50,28 @@ export default function CategoryFilterBar() {
                               borderColor: `${!searchParams.get('tab') && 'black'}`,
                               backgroundColor: `${!searchParams.get('tab') && 'black'}`,
                               color: `${!searchParams.get('tab') ? 'white' : 'black'}`,
-                              marginRight: 1
+                              marginRight: 1,
+                              zIndex:10
                           }}
                           onClick={categoryResetHandler}
                     />
                 </SwiperSlide>
-            {
-                CATEGORY.map(x => <SwiperSlide key={x.value} style={{width: 'auto !important'}}><Chip label={x.label}
-                                                                   skipFocusWhenDisabled
-                                                                   clickable
-                                                                   sx={{
-                                                                       fontSize: 13,
-                                                                       padding: '6px_15px',
-                                                                       borderColor: `${!selectCheckHandler(x.value) && 'black'}`,
-                                                                       backgroundColor: `${selectCheckHandler(x.value) && 'black'}`,
-                                                                       color: `${selectCheckHandler(x.value) ? 'white' : 'black'}`,
-                                                                       marginRight: 1
-                                                                   }}
-                                                                   onClick={() => categoryChangeHandler(x.value)}
-                /></SwiperSlide>)
-            }
+                {
+                    CATEGORY.map(x => <SwiperSlide key={x.value} style={{width: 'auto !important'}}><Chip
+                        label={x.label}
+                        skipFocusWhenDisabled
+                        clickable
+                        sx={{
+                            fontSize: 13,
+                            padding: '6px_15px',
+                            borderColor: `${!selectCheckHandler(x.value) && 'black'}`,
+                            backgroundColor: `${selectCheckHandler(x.value) && 'black'}`,
+                            color: `${selectCheckHandler(x.value) ? 'white' : 'black'}`,
+                            marginRight: 1
+                        }}
+                        onClick={() => categoryChangeHandler(x.value)}
+                    /></SwiperSlide>)
+                }
             </div>
         </Swiper>
 
