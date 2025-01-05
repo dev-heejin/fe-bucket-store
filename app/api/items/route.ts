@@ -1,13 +1,12 @@
-import {NextResponse} from "next/server";
+import { NextResponse } from 'next/server';
+import { getProducts } from '@/app/services/products';
 
-export async function GET(request: Request, {params}: { params: { page: string } }) {
-    const {searchParams} = new URL(request.url)
-    const page = searchParams.get('page') || '1'
-
-    console.log('=== DYNAMIC_PAGE === ', page)
-
-    const url = `https://bucket-assignment-vercel.vercel.app/api?length=12&type=newest&category=25&page=${page}`;
-    const response = await fetch(url);
-    const data = await response.json()
-    return NextResponse.json(data)
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url);
+  try {
+    const response = await getProducts(searchParams);
+    return NextResponse.json(response);
+  } catch (e) {
+    return NextResponse.json(e)
+  }
 }

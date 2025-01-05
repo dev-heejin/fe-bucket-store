@@ -1,12 +1,12 @@
-import type { Config } from "tailwindcss";
-import withMT from "@material-tailwind/react/utils/withMT";
+import type { Config } from 'tailwindcss';
+import withMT from '@material-tailwind/react/utils/withMT';
 
 const config: Config = {
   content: [
-    "./utils/**/*.{js,ts,jsx,tsx,mdx}",
-    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    './utils/**/*.{js,ts,jsx,tsx,mdx}',
+    './pages/**/*.{js,ts,jsx,tsx,mdx}',
+    './components/**/*.{js,ts,jsx,tsx,mdx}',
+    './app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
     screens: {
@@ -20,7 +20,7 @@ const config: Config = {
       screen: '1920px', // 최대 width 설정
     },
   },
-  plugins: [require("@tailwindcss/typography")],
+  plugins: [require('@tailwindcss/typography')],
 };
 
 export default withMT(config);
