@@ -23,7 +23,7 @@ export default function CategoryFilterBar() {
   };
 
   return (
-    <div className="w-full bg-white shadow-md sticky top-0 z-50 py-[10px] lg:static lg:shadow-none ">
+    <div className="w-full bg-white shadow-md sticky top-0 z-50 py-[10px] lg:static lg:shadow-none">
       <Swiper
         slidesPerView={'auto'}
         freeMode={true}
@@ -42,12 +42,12 @@ export default function CategoryFilterBar() {
                 sx={{
                   fontSize: 13,
                   padding: '6px_15px',
-                  borderColor: `${!selectCheckHandler(x.value) && 'black'}`,
-                  backgroundColor: `${selectCheckHandler(x.value) && 'black'}`,
-                  color: `${selectCheckHandler(x.value) ? 'white' : 'black'}`,
+                  borderColor: `${x.value !== '25' && 'black'}`,
+                  backgroundColor: `${x.value === '25' && 'black'}`,
+                  color: `${x.value === '25' ? 'white' : 'black'}`,
                   marginRight: 1,
                 }}
-                onClick={() => categoryChangeHandler(x.value)}
+                // onClick={() => categoryChangeHandler(x.value)}
               />
             </SwiperSlide>
           ))}

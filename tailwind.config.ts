@@ -11,7 +11,7 @@ const config: Config = {
   theme: {
     screens: {
       sm: '640px', // 기본값 유지
-      md: '768px', // 기본값 유지
+      md: '1023px', // 기본값 유지
       lg: '1024px', // 1024px 기준
       xl: '1400px', // 1400px 기준
       '2xl': '1920px', // 1920px 기준

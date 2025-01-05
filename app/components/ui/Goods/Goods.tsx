@@ -7,12 +7,14 @@ import { MenuItem, Select } from '@mui/material';
 import { ORDER_TYPE, OrderType } from '@/app/type';
 import { SelectChangeEvent } from '@mui/material/Select/SelectInput';
 import { getItems } from '@/app/data';
+import useFloatingButtonStore from '@/app/stores/floatingButtonState';
+import { CurrencyExchange, SwapVert } from '@mui/icons-material';
 
 
 export default function Goods() {
   const router = useRouter();
 
-  const searchParams = useSearchParams()
+  const searchParams = useSearchParams();
 
   const [hasNextPage, setHasNextPage] = useState<boolean>(false);
   const [type, setType] = useState<OrderType>(searchParams.get('order_type') as OrderType ?? 'newest');
@@ -20,9 +22,22 @@ export default function Goods() {
   const pageRef = useRef<number>(1);
   const bottomRef = useRef<HTMLDivElement | null>(null);
 
+  const products = useProductsStore((state) => state.products);
+  const setProducts = useProductsStore((state) => state.setProducts);
 
-  const products = useProductsStore((state) => state.products)
-  const setProducts = useProductsStore((state) => state.setProducts)
+  const isOpen = useFloatingButtonStore((set) => set.isOpen);
+
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isOpen]);
 
 
   useEffect(() => {
@@ -41,8 +56,7 @@ export default function Goods() {
         // 페이지 증가 및 데이터 호출을 한 번만 진행하도록 설정
         if (hasNextPage) {
           pageRef.current += 1; // 페이지 번호 증가
-          getItems({page: pageRef.current, order_type: 'newest'}).then((response) => {
-            console.log('여기에요',response)
+          getItems({ page: pageRef.current, order_type: 'newest' }).then((response) => {
             if (!response) return;
 
             setProducts(response); // 상품 목록 업데이트
@@ -64,7 +78,7 @@ export default function Goods() {
 
   const handleTypeChange = (event: SelectChangeEvent<OrderType>) => {
     setType(event.target.value as OrderType);
-    pageRef.current = 1
+    pageRef.current = 1;
     router.replace(`?order_type=${event.target.value}`);
   };
 
@@ -72,31 +86,40 @@ export default function Goods() {
 
   return (
     <>
-      <div className="w-full flex justify-between items-center py-[10px]">
+      <div className="w-full flex justify-between items-center p-[10px]">
         <span className="font-bold text-sm">
           {products.meta.pageInfo.total} 개
         </span>
         <Select
+          size="small"
           displayEmpty
           value={type}
           onChange={handleTypeChange}
+          IconComponent={SwapVert} // 여기에서 아이콘을 변경
           renderValue={(selected) => {
-            if (selected.length === 0) {
-              return <em>Placeholder</em>;
-            }
             return ORDER_TYPE.find((x) => x.type === selected)!.label;
+          }}
+          sx={{
+            fontSize: '0.875rem',  // 폰트 크기 줄이기
+            height: '32px',        // 높이 줄이기
+            minWidth: '120px',     // 최소 너비 줄이기
+            padding: '4px_6px',    // 패딩 조정
+            borderRadius: '20px',
           }}
           MenuProps={{
             PaperProps: {
               style: {
-                maxHeight: 48 * 4.5 + 8,
-                width: 250,
+                maxHeight: 48 * 4.5,
+                width: 150,
               },
             },
           }}
         >
           {ORDER_TYPE.map((name) => (
-            <MenuItem key={name.label} value={name.type}>
+            <MenuItem key={name.label} value={name.type} sx={{
+              fontSize: '0.75rem',  // MenuItem의 폰트 크기 작게
+              // padding: '4px_8px',   // MenuItem의 패딩 작게
+            }}>
               {name.label}
             </MenuItem>
           ))}
@@ -111,7 +134,7 @@ export default function Goods() {
       </div>
       <div
         ref={bottomRef}
-        style={{ width: '100%', height: 30, background: 'black' }}
+        style={{ width: '100%', height: 30 }}
       ></div>
     </>
   );
