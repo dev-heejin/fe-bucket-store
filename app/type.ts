@@ -18,8 +18,8 @@ export type GoodsItemType = {
     maxDiscountRate: number;
   };
   url: string;
-  isFavorite: false;
-  isSoldOut: false;
+  isFavorite: boolean;
+  isSoldOut: boolean;
   deliveryFeeCode: string;
   badges?: {
     custom: [];
@@ -62,3 +62,11 @@ export const ORDER_TYPE = [
   { type: 'high_discount_rate', label: '할인율 높은순' },
   { type: 'best', label: '판매 인기순' },
 ] as const;
+
+export interface DeleteItemHeartResponse {
+  deletedCode: string;
+}
+
+export interface postItemHeartResponse{
+  updatedCode: string;
+}
