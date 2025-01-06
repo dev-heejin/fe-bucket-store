@@ -1,50 +1,50 @@
 import { create } from 'zustand';
 import { GoodsResponseType } from '@/app/type';
-import { deleteItemHeart, postItemHeart } from '@/app/data';
+import { deleteProductFavorite, postProductFavorite } from '@/app/data';
 
 interface ProductState {
-  products: GoodsResponseType | null;
-  setProducts: (state: GoodsResponseType) => void;
-  resetProducts: () => void;
+  productList: GoodsResponseType | null;
+  setProductList: (state: GoodsResponseType) => void;
+  resetProductList: () => void;
   setFavorite: (code: string) => void;
   deleteFavorite: (code: string) => void;
 };
 
 
 const useProductsStore = create<ProductState>((set) => ({
-  products: null,
-  setProducts: (newProducts) =>
+  productList: null,
+  setProductList: (newProducts) =>
     set((state) => {
-      const { products } = state;
-      if (products) {
+      const { productList } = state;
+      if (productList) {
         const updatedProducts = {
-          meta: products.meta,
-          body: [...products.body, ...newProducts.body],
+          meta: productList.meta,
+          body: [...productList.body, ...newProducts.body],
         };
-        return { products: updatedProducts };
+        return { productList: updatedProducts };
       } else {
-        return { products: newProducts };
+        return { productList: newProducts };
       }
     }),
-  resetProducts: () => set(() => ({ products: null })),
+  resetProductList: () => set(() => ({ productList: null })),
   setFavorite: async (code: string) => {
     try {
-      const { updatedCode } = await postItemHeart(code);
+      const { updatedCode } = await postProductFavorite(code);
 
       set((state) => {
-        const { products } = state;
+        const { productList } = state;
 
-        if (!products) return state;
+        if (!productList) return state;
 
-        const updatedBody = products.body.map((product) =>
+        const updatedBody = productList.body.map((product) =>
           product.code === updatedCode
             ? { ...product, isFavorite: true }
             : product
         );
 
         return {
-          products: {
-            ...products,
+          productList: {
+            ...productList,
             body: updatedBody,
           },
         };
@@ -55,22 +55,22 @@ const useProductsStore = create<ProductState>((set) => ({
   },
   deleteFavorite: async (code: string) => {
     try {
-      const { deletedCode } = await deleteItemHeart(code);
+      const { deletedCode } = await deleteProductFavorite(code);
 
       set((state) => {
-        const { products } = state;
+        const { productList } = state;
 
-        if (!products) return state;
+        if (!productList) return state;
 
-        const updatedBody = products.body.map((product) =>
+        const updatedBody = productList.body.map((product) =>
           product.code === deletedCode
             ? { ...product, isFavorite: false }
             : product
         );
 
         return {
-          products: {
-            ...products,
+          productList: {
+            ...productList,
             body: updatedBody,
           },
         };

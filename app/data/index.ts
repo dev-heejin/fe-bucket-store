@@ -1,3 +1,3 @@
-export {default as getItems} from './getItems'
-export {default as deleteItemHeart} from './deleteItemHeart'
-export {default as postItemHeart} from './postItemHeart'
+export {default as getProductList} from './getProductList'
+export {default as deleteProductFavorite} from './deleteProductFavorite'
+export {default as postProductFavorite} from './postProductFavorite'

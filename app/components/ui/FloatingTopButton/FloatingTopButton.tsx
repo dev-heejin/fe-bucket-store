@@ -7,6 +7,10 @@ import { ArrowUpward } from '@mui/icons-material';
 export default function FloatingTopButton() {
   const [showButton, setShowButton] = useState(false);
 
+  const scrollHandler = () => {
+    window.scroll({ top: 0, behavior: 'smooth' });
+  };
+
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 100) {
@@ -23,17 +27,14 @@ export default function FloatingTopButton() {
     };
   }, []);
 
-  const scrollHandler = () => {
-    window.scroll({ top: 0, behavior: 'smooth' });
-  };
 
   return (
     <>
       {showButton && (
         <Fab
           onClick={scrollHandler}
-          color="inherit"
-          size="small"
+          color='inherit'
+          size='small'
           sx={{
             position: 'fixed',
             bottom: 20,
@@ -42,6 +43,7 @@ export default function FloatingTopButton() {
             background: 'white',
             color: 'lightgray',
           }}
+          className={'lg:hidden'}
         >
           <ArrowUpward />
         </Fab>

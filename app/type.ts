@@ -1,9 +1,5 @@
 export type SelectOption = { label: string; value: string };
 
-export type ResponseType<T>  = {
-  data: T
-}
-
 export type GoodsItemType = {
   code: string;
   name: string;
@@ -55,18 +51,18 @@ export type OrderType =
   | 'high_discount_rate'
   | 'best';
 
-export const ORDER_TYPE = [
-  { type: 'newest', label: '최신순' },
-  { type: 'low_price', label: '낮은 가격순' },
-  { type: 'high_price', label: '높은 가격 순' },
-  { type: 'high_discount_rate', label: '할인율 높은순' },
-  { type: 'best', label: '판매 인기순' },
+export const ORDER_TYPE_OPTIONS: SelectOption[] = [
+  { value: 'newest', label: '최신순' },
+  { value: 'low_price', label: '낮은 가격순' },
+  { value: 'high_price', label: '높은 가격 순' },
+  { value: 'high_discount_rate', label: '할인율 높은순' },
+  { value: 'best', label: '판매 인기순' },
 ] as const;
 
 export interface DeleteItemHeartResponse {
   deletedCode: string;
 }
 
-export interface postItemHeartResponse{
+export interface postItemHeartResponse {
   updatedCode: string;
 }
